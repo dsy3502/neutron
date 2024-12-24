@@ -19,7 +19,7 @@ pipeline {
             printPostContent: true,
             regexpFilterExpression: 'completed\\sdevelop\\ssuccess',
             regexpFilterText: '$action $branch $result',
-            token: 'nova'
+            token: 'neutron'
         )
     }
 
@@ -30,7 +30,7 @@ pipeline {
                 branch 'master'
             }
             parallel {
-                stage('pull  nova-api') {
+                stage('pull  neutron') {
                     agent {
                       node {
                         label "dingo_stack"
@@ -38,23 +38,9 @@ pipeline {
                     }
                     steps {
                         echo "pull nova-api images to test"
-                        sh 'kolla-ansible -i /root/multinode pull --tag nova-api -e openstack_tag=latest'
+                        sh 'kolla-ansible -i /root/multinode pull --tag neutron -e openstack_tag=latest'
                         echo 'deploy images to develop '
-                        sh 'kolla-ansible -i /root/multinode upgrade --tag nova-api -e openstack_tag=latest'
-                    }
-                }
-                stage('pull nova-cell') {
-                    agent {
-                      node {
-                        label "dingo_stack"
-                      }
-                    }
-            
-                    steps {
-                        echo "pull nova-cell images to test"
-                        sh 'kolla-ansible -i /root/multinode pull --tag nova-cell -e openstack_tag=latest'
-                        echo 'deploy images to develop '
-                        sh 'kolla-ansible -i /root/multinode upgrade --tag nova-cell -e openstack_tag=latest'
+                        sh 'kolla-ansible -i /root/multinode upgrade --tag neutron -e openstack_tag=latest'
                     }
                 }
             }
@@ -65,7 +51,7 @@ pipeline {
             }
 
             parallel {
-                stage('pull  nova-api') {
+                stage('pull  neutron') {
                     agent {
                       node {
                         label "dingo_stack"
@@ -73,24 +59,12 @@ pipeline {
                     }
                     steps {
                         echo "pull nova-api images to dev"
-                        sh 'kolla-ansible -i /root/multinode pull --tag nova-api -e openstack_tag=${branch}'
+                        sh 'kolla-ansible -i /root/multinode pull --tag neutron -e openstack_tag=${branch}'
                         echo 'deploy images to develop '
-                        sh 'kolla-ansible -i /root/multinode upgrade --tag nova-api -e openstack_tag=${branch}'
+                        sh 'kolla-ansible -i /root/multinode upgrade --tag neutron -e openstack_tag=${branch}'
                     }
                 }
-                stage('pull nova-cell') {
-                    agent {
-                      node {
-                        label "dingo_stack"
-                      }
-                    }
-                    steps {
-                        echo "pull nova-cell images to dev"
-                        sh 'kolla-ansible -i /root/multinode pull --tag nova-cell -e openstack_tag=${branch}'
-                        echo 'deploy images to develop '
-                        sh 'kolla-ansible -i /root/multinode upgrade --tag nova-cell -e openstack_tag=${branch}'
-                    }
-                }
+               
             }
         }
     }
