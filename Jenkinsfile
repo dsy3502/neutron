@@ -24,7 +24,6 @@ pipeline {
     }
 
     stages {
-        
         stage('Deploy to test'){
             when {
                 branch 'master'
