@@ -89,7 +89,7 @@ jobs:
         cd ./kolla
         pip install -r requirements.txt
         chmod 777 ./tools/build.sh
-        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo neutron --skip-images "base,openstack-baseyemeiyou "
+        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo neutron --skip-images "base,openstack-base"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
