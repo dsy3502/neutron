@@ -57,7 +57,7 @@ jobs:
         cd ./kolla
         pip install -r requirements.txt
         chmod 777 ./tools/build.sh
-        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo nova --skip-images "base,openstack-base,nova-libvirt,nova-compute,nova-ssh,nova-serialproxy"
+        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo neutron --skip-images "base,openstack-base"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
@@ -89,7 +89,7 @@ jobs:
         cd ./kolla
         pip install -r requirements.txt
         chmod 777 ./tools/build.sh
-        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo nova --skip-images "base,openstack-base,nova-libvirt,nova-api,nova-scheduler,nova-conductor,nova-novncproxy,nova-compute-ironic,nova-serialproxy"
+        ./tools/build.sh --registry ${{ secrets.DOCKER_REGISTRY }} --namespace dongshanyi --branch ${GITHUB_REF##*/} --repo neutron --skip-images "base,openstack-baseyemeiyou "
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
