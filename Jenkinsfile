@@ -58,6 +58,7 @@ pipeline {
                     }
                     steps {
                         echo "pull nova-api images to dev"
+                        sh 'export https_prxoy=172.20.3.88:1088'
                         sh 'kolla-ansible -i /root/multinode pull --tag neutron -e openstack_tag=${branch}'
                         echo 'deploy images to develop '
                         sh 'kolla-ansible -i /root/multinode upgrade --tag neutron -e openstack_tag=${branch}'
